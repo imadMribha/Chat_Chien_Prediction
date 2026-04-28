@@ -24,9 +24,9 @@ def predict_image(image_path, cat_avg, dog_avg, cat_images, dog_images):
     total = cat_dist + dog_dist
 
     if total == 0:
-        return "Dataset issue: Cat and Dog classes are too similar. Please use more distinct images."
+        return "Please use more distinct images."
     
     cat_percentage = (cat_dist / total) * 100
     dog_percentage = (dog_dist / total) * 100
 
-    return f"Cat: {cat_percentage:.2f}%, Dog: {dog_percentage:.2f}%"
+    return f"Cat: {cat_percentage:.1f}%\nDog: {dog_percentage:.1f}%"

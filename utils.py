@@ -29,19 +29,6 @@ def upload_images(category, image_list, result_label, last_folder="pics"):
 
     result_label.config(text=f"{len(image_list)} {category.capitalize()} Images Loaded")
 
-# Function to handle training the model
-def handle_train(cat_images, dog_images, result_label):
-    cat_avg, dog_avg = train_model(cat_images, dog_images)
-
-    if cat_avg is None or dog_avg is None:
-        result_label.config(text="Please upload images for cats and dogs before training.")
-    else:
-        result_label.config(text="Training complete")
-        print("Cat Average RGB:", cat_avg)
-        print("Dog Average RGB:", dog_avg)
-
-    return cat_avg, dog_avg
-
 # Function to upload test image
 def upload_test_image(result_label, last_folder="pics"):
 
@@ -58,8 +45,26 @@ def upload_test_image(result_label, last_folder="pics"):
         result_label.config(text="No Test Image Selected")
         return None
 
-# Fuction to clear dataset folders
-def clear_dataset(cat_images, dog_images, result_label):
+# Function to handle training the model
+def handle_train(cat_images, dog_images, result_label):
+    cat_avg, dog_avg = train_model(cat_images, dog_images)
+
+    if cat_avg is None or dog_avg is None:
+        result_label.config(text="Please upload images to both datasets.")
+    else:
+        result_label.config(text="Training complete")
+        print("Cat Average RGB:", cat_avg)
+        print("Dog Average RGB:", dog_avg)
+
+    return cat_avg, dog_avg
+
+# Function to clear dataset folders
+
+def clear_preview(container):
+    for widget in container.winfo_children():
+        widget.destroy()
+
+def clear_dataset(cat_images, dog_images, cat_section, dog_section, test_section, result_label):
 
     # Ask for confirmation before clearing the dataset
     confirm = messagebox.askyesno("Confirm", "Delete all dataset images?")
@@ -75,9 +80,13 @@ def clear_dataset(cat_images, dog_images, result_label):
                 path = os.path.join(folder, file)
                 os.remove(path)
 
-    # Clear the lists after clearing the folders
+    # Clear every global variable
     cat_images.clear()
     dog_images.clear()
+
+    clear_preview(cat_section)
+    clear_preview(dog_section)
+    clear_preview(test_section)
 
     result_label.config(text="Dataset cleared")
 
