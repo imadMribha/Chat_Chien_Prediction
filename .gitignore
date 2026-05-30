@@ -1,11 +1,35 @@
+# Python cache files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+
+# Virtual environments and local environment files
 .env
+.env.*
 .venv/
 venv/
+env/
+
+# Local IDE/editor files
+.vscode/
+.idea/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Generated or user-uploaded datasets
 dataset/
 pics/
+
+# Planning and exported report/demo files
 Planning/
+*.pdf
+*.doc
+*.docx
+*.mp4
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
